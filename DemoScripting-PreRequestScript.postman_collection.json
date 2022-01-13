@@ -1,0 +1,61 @@
+{
+	"info": {
+		"_postman_id": "656bdf78-a7f5-495f-b3f7-c4b41f12b7cc",
+		"name": "DemoScripting:PreRequestScript",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Prerequest script with multiple validations",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"pm.globals.set(\"userId\", \"5\");\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"// Multiple assertions\r",
+							"pm.test(\"validate multiple fields\", function () {\r",
+							"res = pm.response.json();\r",
+							"pm.expect(res.data.first_name).to.eql(\"Charles\") \r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://reqres.in/api/users/{{userId}}",
+					"protocol": "https",
+					"host": [
+						"reqres",
+						"in"
+					],
+					"path": [
+						"api",
+						"users",
+						"{{userId}}"
+					]
+				},
+				"description": "Writing Pre-Request script at Request level.  \nAdding multiple assertions to it"
+			},
+			"response": []
+		}
+	]
+}
